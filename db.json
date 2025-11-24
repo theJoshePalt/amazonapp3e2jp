@@ -1,0 +1,10 @@
+{
+    "tareas": [
+      { "id": "1", "title": "matematicas", "description": "description" },
+      { "id": "2", "title": "lengua", "description": "description" }
+    ],
+    "users": [
+      { "id": "1", "username": "pepe", "password": "123451" },
+      { "id": "2", "username": "pepe", "password": "123451" }
+    ]
+  }
