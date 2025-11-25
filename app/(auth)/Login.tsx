@@ -8,29 +8,38 @@ import React, { useState } from "react";
 import { router } from "expo-router";
 import CustomInput from "../../components/ui/CustomInput";
 import { LoginSchema } from "../../lib/schemas/LoginSchema";
+import { useAppLogin } from "../../lib/hooks/useAppLogin";
 
 export default function LoginScreen() {
 
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [errors, setErrors] = useState<{ email?: string; password?: string }>({});
+  const { authenticate, loading } = useAppLogin();
 
-  const handleLogin = () => {
-    const result = LoginSchema.safeParse({ email, password });
+  const handleLogin = async () => {
+  const result = LoginSchema.safeParse({ email, password });
 
-    if (!result.success) {
-      const formErrors: any = {};
-      result.error.errors.forEach((err) => {
-        const field = err.path[0];
-        formErrors[field] = err.message;
-      });
-      setErrors(formErrors);
-      return;
-    }
+  if (!result.success) {
+    const formErrors: any = {};
+    result.error.errors.forEach((err) => {
+      const field = err.path[0];
+      formErrors[field] = err.message;
+    });
+    setErrors(formErrors);
+    return;
+  }
 
-    setErrors({});
-    Alert.alert("Todo en orden. Bienvenido");
-  };
+  const ok = await authenticate(email, password);
+
+  if (!ok) {
+    Alert.alert("Error", "Credenciales incorrectas o usuario no existe");
+    return;
+  }
+
+  Alert.alert("Bienvenido", "Inicio de sesión exitoso");
+};
+
 
   return (
     <KeyboardAvoidingView
