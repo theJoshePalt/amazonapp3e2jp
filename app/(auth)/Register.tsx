@@ -51,8 +51,9 @@ const handleRegister = async () => {
 
   Alert.alert("Éxito", "Usuario registrado correctamente");
 
-  // 3️⃣ Enviar a Login
-  router.replace("./Login");
+  // 3️⃣ Enviar al DASHBOARD en otras palabras entrar a la app
+  router.replace("/(home)/Dashboard");
+
 };
 
 return (

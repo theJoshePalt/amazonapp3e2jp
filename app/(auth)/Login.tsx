@@ -37,7 +37,8 @@ export default function LoginScreen() {
     return;
   }
 
-  Alert.alert("Bienvenido", "Inicio de sesión exitoso");
+  //Enviar al DASHBOARD en otras palabras entrar a la app
+  router.replace("/(home)/Dashboard");
 };
 
 
