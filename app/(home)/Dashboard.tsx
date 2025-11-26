@@ -24,6 +24,15 @@ export default function DashboardScreen() {
         </Text>
       </TouchableOpacity>
 
+      <TouchableOpacity
+        onPress={() => router.push("/(home)/CreateTask")}
+        className="bg-green-600 px-6 py-3 rounded-xl mt-6"
+      >
+        <Text className="text-white text-lg font-semibold">
+          Crear nueva tarea
+        </Text>
+      </TouchableOpacity>
+
 
       <TouchableOpacity
         className="bg-red-600 px-6 py-3 rounded-xl"
