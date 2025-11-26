@@ -9,6 +9,7 @@ import React, { useState } from "react";
 import { router } from "expo-router";
 import CustomInput from "../../components/ui/CustomInput";
 import { RegisterSchema } from "../../lib/schemas/RegisterSchema";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function RegisterScreen() {
 
@@ -47,15 +48,20 @@ export default function RegisterScreen() {
       style={{ backgroundColor: "#280000" }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView
+        
+        <KeyboardAwareScrollView
+          enableOnAndroid={true}
+          extraHeight={120}
           contentContainerStyle={{
             flexGrow: 1,
             justifyContent: "center",
             alignItems: "center",
             padding: 20,
           }}
-          keyboardShouldPersistTaps="handled"
         >
+          <Text className="text-white font-bold text-lg text-center">
+            REGISTER
+          </Text>
           <View className="w-full">
 
             <CustomInput
@@ -116,7 +122,7 @@ export default function RegisterScreen() {
             </TouchableOpacity>
 
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView>
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );

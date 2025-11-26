@@ -24,12 +24,14 @@
   "users": [
     {
       "id": "1",
+      "username" : "Pepe",
       "email": "pepe@uets.edu.ec",
       "password": "12345"
     },
     {
       "id": "2",
-      "email": "pepe",
+      "username" : "Pepe2",
+      "email": "pepe2@uets.edu.ec",
       "password": "123451"
     },
     {

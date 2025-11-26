@@ -10,6 +10,7 @@ import { router } from "expo-router";
 import CustomInput from "../../components/ui/CustomInput";
 import { LoginSchema } from "../../lib/schemas/LoginSchema";
 import { useAppLogin } from "../../lib/hooks/useAppLogin";
+import { KeyboardAwareScrollView } from "react-native-keyboard-aware-scroll-view";
 
 export default function LoginScreen() {
 
@@ -48,15 +49,21 @@ export default function LoginScreen() {
       style={{ backgroundColor: "#280000" }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-        <ScrollView
+        <KeyboardAwareScrollView 
+          enableOnAndroid={true}
+          extraHeight={120}
           contentContainerStyle={{
             flexGrow: 1,
             justifyContent: "center",
             alignItems: "center",
             padding: 20,
           }}
-          keyboardShouldPersistTaps="handled"
         >
+          
+          <Text className="text-white font-bold text-lg text-center">
+              LOG IN
+          </Text>
+          
           <View className="w-full">
 
             {/* INPUTS */}
@@ -101,7 +108,7 @@ export default function LoginScreen() {
             </TouchableOpacity>
 
           </View>
-        </ScrollView>
+        </KeyboardAwareScrollView >
       </TouchableWithoutFeedback>
     </KeyboardAvoidingView>
   );
