@@ -27,6 +27,12 @@
       "username": "Holap",
       "email": "holaquemas@uets.edu.ec",
       "password": "09876"
+    },
+    {
+      "id": "6ced",
+      "username": "Palti",
+      "email": "josepalta@uets.edu.ec",
+      "password": "Elpepe"
     }
   ]
 }
