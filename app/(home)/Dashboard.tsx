@@ -1,50 +1,26 @@
-import { View, Text, TouchableOpacity } from "react-native";
+import { View, Text } from "react-native";
 import { useAuth } from "../../lib/hooks/useAuth";
-import { router } from "expo-router";
-import { useAppLogout } from "../../lib/hooks/useAppLogout";
+import AppTabBar from "../../components/ui/AppTabBar";
 
 export default function DashboardScreen() {
   const { user } = useAuth();
-  const { logout } = useAppLogout();
-  const handleLogout = () => {
-    logout();
-    router.replace("/Login"); // lo manda al login, reemplazando la historia
-  };
+
   return (
-    <View className="flex-1 justify-center items-center bg-gray-100 p-6">
-      <Text className="text-3xl font-bold text-gray-800 mb-3">
-        Hola, {user?.username}
-      </Text>
-
-      <Text className="text-lg text-gray-600 mb-10">
-        Bienvenido a tu Dashboard
-      </Text>
-
-      <TouchableOpacity
-        onPress={() => router.push("/(home)/Tasks")}
-        className="bg-blue-600 px-6 py-3 rounded-xl mt-8"
-      >
-        <Text className="text-white text-lg font-semibold">
-          Ver tareas
+    <View className="flex-1 justify-between bg-[#854221] p-6">
+      
+      {/* Contenido principal */}
+      <View style={{ alignItems: "center", marginTop: 60 }}>
+        <Text className="text-3xl font-bold text-[#280000] mb-3">
+          Hola, {user?.username}
         </Text>
-      </TouchableOpacity>
 
-      <TouchableOpacity
-        onPress={() => router.push("/(home)/CreateTask")}
-        className="bg-green-600 px-6 py-3 rounded-xl mt-6"
-      >
-        <Text className="text-white text-lg font-semibold">
-          Crear nueva tarea
+        <Text className="text-lg text-[#280000] opacity-80">
+          Bienvenido a tu Dashboard
         </Text>
-      </TouchableOpacity>
+      </View>
 
-
-      <TouchableOpacity
-        onPress={handleLogout}
-        className="bg-red-600 px-6 py-3 rounded-2xl"
-      >
-        <Text className="text-white text-lg font-semibold">Cerrar sesión</Text>
-      </TouchableOpacity>
+      {/* Tab inferior */}
+      <AppTabBar />
     </View>
   );
 }
