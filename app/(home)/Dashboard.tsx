@@ -1,5 +1,6 @@
 import { View, Text, TouchableOpacity } from "react-native";
 import { useAuth } from "../../lib/hooks/useAuth";
+import { router } from "expo-router";
 
 export default function DashboardScreen() {
   const { user, logout } = useAuth();
@@ -13,6 +14,16 @@ export default function DashboardScreen() {
       <Text className="text-lg text-gray-600 mb-10">
         Bienvenido a tu Dashboard
       </Text>
+
+      <TouchableOpacity
+        onPress={() => router.push("/(home)/Tasks")}
+        className="bg-blue-600 px-6 py-3 rounded-xl mt-8"
+      >
+        <Text className="text-white text-lg font-semibold">
+          Ver tareas
+        </Text>
+      </TouchableOpacity>
+
 
       <TouchableOpacity
         className="bg-red-600 px-6 py-3 rounded-xl"
