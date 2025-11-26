@@ -6,14 +6,14 @@
       "description": "Hacer los ejercicios del 5 al 11 hasta el lunes"
     },
     {
-      "id": "2",
       "title": "lengua",
-      "description": "leer la pagina 20 y hacer un resumen de 5 lineas en el cuaderno"
+      "description": "leer la pagina 30 y hacer un resumen de 5 lineas en el cuaderno con imágenes ",
+      "id": "2"
     },
     {
-      "id": "2e9f",
       "title": "Progra movil",
-      "description": "Terminar la sumativa"
+      "description": "Hacer los commits \n",
+      "id": "2e9f"
     }
   ],
   "users": [
