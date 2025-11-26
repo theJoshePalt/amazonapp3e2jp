@@ -1,10 +1,32 @@
 {
-    "tareas": [
-      { "id": "1", "title": "matematicas", "description": "description" },
-      { "id": "2", "title": "lengua", "description": "description" }
-    ],
-    "users": [
-      { "id": "1", "email": "pepe@uets.edu.ec", "password": "12345" },
-      { "id": "2", "email": "pepe", "password": "123451" }
-    ]
-  }
+  "tareas": [
+    {
+      "id": "1",
+      "title": "matematicas",
+      "description": "description"
+    },
+    {
+      "id": "2",
+      "title": "lengua",
+      "description": "description"
+    }
+  ],
+  "users": [
+    {
+      "id": "1",
+      "email": "pepe@uets.edu.ec",
+      "password": "12345"
+    },
+    {
+      "id": "2",
+      "email": "pepe",
+      "password": "123451"
+    },
+    {
+      "id": "6af4",
+      "username": "Holap",
+      "email": "holaquemas@uets.edu.ec",
+      "password": "09876"
+    }
+  ]
+}
