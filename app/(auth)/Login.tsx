@@ -3,7 +3,8 @@ import { Text, View, TouchableOpacity, Alert,
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
-  Platform } from "react-native";
+  Platform
+} from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
 import CustomInput from "../../components/ui/CustomInput";
@@ -18,34 +19,33 @@ export default function LoginScreen() {
   const { authenticate, loading } = useAppLogin();
 
   const handleLogin = async () => {
-  const result = LoginSchema.safeParse({ email, password });
+    const result = LoginSchema.safeParse({ email, password });
 
-  if (!result.success) {
-    const formErrors: any = {};
-    result.error.errors.forEach((err) => {
-      const field = err.path[0];
-      formErrors[field] = err.message;
-    });
-    setErrors(formErrors);
-    return;
-  }
+    if (!result.success) {
+      const formErrors: any = {};
+      result.error.errors.forEach((err) => {
+        const field = err.path[0];
+        formErrors[field] = err.message;
+      });
+      setErrors(formErrors);
+      return;
+    }
 
-  const ok = await authenticate(email, password);
+    const ok = await authenticate(email, password);
 
-  if (!ok) {
-    Alert.alert("Error", "Credenciales incorrectas o usuario no existe");
-    return;
-  }
+    if (!ok) {
+      Alert.alert("Error", "Credenciales incorrectas o usuario no existe");
+      return;
+    }
 
-  //Enviar al DASHBOARD en otras palabras entrar a la app
-  router.replace("/(home)/Dashboard");
-};
-
+    router.replace("/(home)/Dashboard");
+  };
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-gray-100"
+      className="flex-1"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ backgroundColor: "#280000" }}
     >
       <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
         <ScrollView
@@ -53,21 +53,20 @@ export default function LoginScreen() {
             flexGrow: 1,
             justifyContent: "center",
             alignItems: "center",
-            padding: 20
+            padding: 20,
           }}
           keyboardShouldPersistTaps="handled"
         >
           <View className="w-full">
-            <Text className="text-3xl font-bold text-gray-800 mb-8 text-center">
-              LOGIN
-            </Text>
 
+            {/* INPUTS */}
             <CustomInput
               label="Correo"
               placeholder="ejemplo@uets.edu"
               value={email}
               onChangeText={setEmail}
               error={errors.email}
+              darkMode // 🔥 Nueva prop que agregarás en CustomInput
             />
 
             <CustomInput
@@ -77,22 +76,30 @@ export default function LoginScreen() {
               onChangeText={setPassword}
               secureTextEntry
               error={errors.password}
+              darkMode
             />
 
+            {/* BOTÓN */}
             <TouchableOpacity
               onPress={handleLogin}
-              className="bg-blue-600 px-6 py-3 rounded-2xl mt-3"
+              className="px-6 py-3 rounded-2xl mt-5"
+              style={{ backgroundColor: "#854221" }}
             >
               <Text className="text-white font-semibold text-lg text-center">
                 Iniciar sesión
               </Text>
             </TouchableOpacity>
 
+            {/* LINK */}
             <TouchableOpacity onPress={() => router.push("./Register")}>
-              <Text className="text-blue-600 mt-4 text-center">
+              <Text 
+                className="mt-4 text-center"
+                style={{ color: "#ec9b75" }}
+              >
                 ¿No tienes cuenta? Regístrate.
               </Text>
             </TouchableOpacity>
+
           </View>
         </ScrollView>
       </TouchableWithoutFeedback>

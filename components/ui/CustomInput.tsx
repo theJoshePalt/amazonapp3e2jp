@@ -8,6 +8,7 @@ interface Props {
   onChangeText: (text: string) => void;
   secureTextEntry?: boolean;
   error?: string;
+  darkMode?: boolean; // 🔥 nueva propiedad
 }
 
 export default function CustomInput({
@@ -17,11 +18,23 @@ export default function CustomInput({
   onChangeText,
   secureTextEntry,
   error,
+  darkMode = false, // por defecto es falso
 }: Props) {
+  const bgColor = darkMode ? "#3a1a1a" : "#ffffff";
+  const borderColor = error ? "#ff4d4d" : darkMode ? "#ffffff" : "#cccccc";
+  const textColor = darkMode ? "#ffffff" : "#333333";
+  const placeholderColor = darkMode ? "#b8b8b8" : "#888888";
+  const labelColor = darkMode ? "#ffffff" : "#333333";
+
   return (
     <View className="mb-4 w-full">
       {label && (
-        <Text className="text-gray-700 mb-1 font-semibold">{label}</Text>
+        <Text
+          className="mb-1 font-semibold"
+          style={{ color: labelColor }}
+        >
+          {label}
+        </Text>
       )}
 
       <TextInput
@@ -29,13 +42,19 @@ export default function CustomInput({
         placeholder={placeholder}
         onChangeText={onChangeText}
         secureTextEntry={secureTextEntry}
-        className={`w-full px-4 py-3 rounded-xl border 
-          ${error ? "border-red-500" : "border-gray-300"} 
-          bg-white text-gray-800`}
-        placeholderTextColor="#888"
+        style={{
+          width: "100%",
+          paddingHorizontal: 16,
+          paddingVertical: 12,
+          borderRadius: 12,
+          borderWidth: 1.5,
+          backgroundColor: bgColor,
+          color: textColor,
+          borderColor: borderColor,
+        }}
+        placeholderTextColor={placeholderColor}
       />
 
-      {/* Mostrar el error debajo del input */}
       {error && (
         <Text className="text-red-500 mt-1 text-sm">{error}</Text>
       )}

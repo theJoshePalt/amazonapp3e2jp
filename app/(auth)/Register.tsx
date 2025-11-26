@@ -3,132 +3,121 @@ import { Text, View, TouchableOpacity, Alert,
   ScrollView,
   TouchableWithoutFeedback,
   Keyboard,
-  Platform } from "react-native";
+  Platform
+} from "react-native";
 import React, { useState } from "react";
 import { router } from "expo-router";
 import CustomInput from "../../components/ui/CustomInput";
 import { RegisterSchema } from "../../lib/schemas/RegisterSchema";
-import { useAppRegister } from "../../lib/hooks/useAppRegister";
 
 export default function RegisterScreen() {
 
-const [username, setUsername] = useState("");
-const [email, setEmail]       = useState("");
-const [password, setPassword] = useState("");
-const [confirmPassword, setConfirmPassword] = useState("");
-const [errors, setErrors] = useState<any>({});
+  const [username, setUsername] = useState("");
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+  const [errors, setErrors] = useState<any>({});
 
-const { registerUser, loading } = useAppRegister();
-
-const handleRegister = async () => {
-  // 1️⃣ Validación Zod
-  const result = RegisterSchema.safeParse({
-    username,
-    email,
-    password,
-    confirmPassword,
-  });
-
-  if (!result.success) {
-    const formErrors: any = {};
-    result.error.errors.forEach((err) => {
-      const field = err.path[0];
-      formErrors[field] = err.message;
+  const handleRegister = () => {
+    const result = RegisterSchema.safeParse({
+      username,
+      email,
+      password,
+      confirmPassword,
     });
-    setErrors(formErrors);
-    return;
-  }
 
-  setErrors({});
+    if (!result.success) {
+      const formErrors: any = {};
+      result.error.errors.forEach((err) => {
+        const field = err.path[0];
+        formErrors[field] = err.message;
+      });
+      setErrors(formErrors);
+      return;
+    }
 
-  // 2️⃣ Intentar registro en la API
-  const response = await registerUser(username, email, password);
+    setErrors({});
+    router.replace("/(home)/Dashboard");
+  };
 
-  if (!response.ok) {
-    Alert.alert("Error", response.error);
-    return;
-  }
+  return (
+    <KeyboardAvoidingView
+      className="flex-1"
+      behavior={Platform.OS === "ios" ? "padding" : "height"}
+      style={{ backgroundColor: "#280000" }}
+    >
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+        <ScrollView
+          contentContainerStyle={{
+            flexGrow: 1,
+            justifyContent: "center",
+            alignItems: "center",
+            padding: 20,
+          }}
+          keyboardShouldPersistTaps="handled"
+        >
+          <View className="w-full">
 
-  Alert.alert("Éxito", "Usuario registrado correctamente");
+            <CustomInput
+              label="Usuario"
+              placeholder="Tu nombre"
+              value={username}
+              onChangeText={setUsername}
+              error={errors.username}
+              darkMode
+            />
 
-  // 3️⃣ Enviar al DASHBOARD en otras palabras entrar a la app
-  router.replace("/(home)/Dashboard");
+            <CustomInput
+              label="Correo"
+              placeholder="ejemplo@uets.edu"
+              value={email}
+              onChangeText={setEmail}
+              error={errors.email}
+              darkMode
+            />
 
-};
+            <CustomInput
+              label="Contraseña"
+              placeholder="Contraseña segura"
+              value={password}
+              onChangeText={setPassword}
+              secureTextEntry
+              error={errors.password}
+              darkMode
+            />
 
-return (
-  <KeyboardAvoidingView
-    className="flex-1 bg-gray-100"
-    behavior={Platform.OS === "ios" ? "padding" : "position"}
-  >
-    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <ScrollView
-        contentContainerStyle={{
-          flexGrow: 1,
-          justifyContent: "center",
-          alignItems: "center",
-          padding: 20
-        }}
-        keyboardShouldPersistTaps="handled"
-      >
-        <View className="w-full">
-          <Text className="text-3xl font-bold text-gray-800 mb-8 text-center">
-            REGISTER
-          </Text>
+            <CustomInput
+              label="Confirmar contraseña"
+              placeholder="Repite tu contraseña"
+              value={confirmPassword}
+              onChangeText={setConfirmPassword}
+              secureTextEntry
+              error={errors.confirmPassword}
+              darkMode
+            />
 
-          <CustomInput
-            label="Usuario"
-            placeholder="Elige un usuario"
-            value={username}
-            onChangeText={setUsername}
-            error={errors.username}
-          />
+            <TouchableOpacity
+              onPress={handleRegister}
+              className="px-6 py-3 rounded-2xl mt-5"
+              style={{ backgroundColor: "#854221" }}
+            >
+              <Text className="text-white font-semibold text-lg text-center">
+                Registrarse
+              </Text>
+            </TouchableOpacity>
 
-          <CustomInput
-            label="Correo"
-            placeholder="ejemplo@uets.edu"
-            value={email}
-            onChangeText={setEmail}
-            error={errors.email}
-          />
+            <TouchableOpacity onPress={() => router.push("./Login")}>
+              <Text 
+                className="mt-4 text-center"
+                style={{ color: "#ec9b75" }}
+              >
+                ¿Ya tienes cuenta? Inicia sesión.
+              </Text>
+            </TouchableOpacity>
 
-          <CustomInput
-            label="Contraseña"
-            placeholder="Ingresa una contraseña"
-            value={password}
-            onChangeText={setPassword}
-            secureTextEntry
-            error={errors.password}
-          />
-
-          <CustomInput
-            label="Confirmar contraseña"
-            placeholder="Repite tu contraseña"
-            value={confirmPassword}
-            onChangeText={setConfirmPassword}
-            secureTextEntry
-            error={errors.confirmPassword}
-          />
-
-          <TouchableOpacity
-            onPress={handleRegister}
-            disabled={loading}
-            className="bg-green-600 px-6 py-3 rounded-2xl mt-3"
-          >
-            <Text className="text-white font-semibold text-lg text-center">
-              {loading ? "Registrando..." : "Registrarse"}
-            </Text>
-          </TouchableOpacity>
-
-          <TouchableOpacity onPress={() => router.push("./Login")}>
-            <Text className="text-green-600 mt-4 text-center">
-              ¿Ya tienes cuenta? Inicia sesión.
-            </Text>
-          </TouchableOpacity>
-        </View>
-      </ScrollView>
-    </TouchableWithoutFeedback>
-  </KeyboardAvoidingView>
-);
+          </View>
+        </ScrollView>
+      </TouchableWithoutFeedback>
+    </KeyboardAvoidingView>
+  );
 }
-
