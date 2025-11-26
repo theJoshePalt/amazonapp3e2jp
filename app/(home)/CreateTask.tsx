@@ -3,7 +3,7 @@ import { useState } from "react";
 import { useTaskCreate } from "../../lib/hooks/useTaskCreate";
 import { TaskSchema } from "../../lib/schemas/TaskSchema";
 import { router } from "expo-router";
-
+import AppTabBar from "../../components/ui/AppTabBar";
 export default function CreateTaskScreen() {
   const [title, setTitle] = useState("");
   const [description, setDescription] = useState("");
@@ -36,47 +36,78 @@ export default function CreateTaskScreen() {
 
   return (
     <KeyboardAvoidingView
-      className="flex-1 bg-gray-100"
+      className="flex-1 bg-[#854221]"
       behavior={Platform.OS === "ios" ? "padding" : "height"}
     >
       <ScrollView contentContainerStyle={{ padding: 20 }}>
-        <Text className="text-3xl font-bold text-center text-black mb-6">
+
+        <Text className="text-3xl font-bold text-center text-[#ec9b75] mb-6">
           Crear Tarea
         </Text>
 
-        <Text className="font-semibold text-black mb-1">Título</Text>
+        {/* TITULO */}
+        <Text className="font-semibold text-[#ec9b75] mb-1">Título</Text>
         <TextInput
           value={title}
           onChangeText={setTitle}
-          className="bg-white p-3 rounded-xl mb-1"
+          style={{
+            backgroundColor: "#280000",
+            color: "#ec9b75",
+            padding: 14,
+            borderRadius: 16,
+            borderWidth: 1,
+            borderColor: "#ec9b75",
+            marginBottom: 4,
+          }}
           placeholder="Título de la tarea"
+          placeholderTextColor="#b88a6f"
         />
         {errors.title && (
-          <Text className="text-red-600 mb-3">{errors.title}</Text>
+          <Text className="text-red-400 mb-3">{errors.title}</Text>
         )}
 
-        <Text className="font-semibold text-black mb-1">Descripción</Text>
+        {/* DESCRIPCIÓN */}
+        <Text className="font-semibold text-[#ec9b75] mb-1">Descripción</Text>
         <TextInput
           value={description}
           onChangeText={setDescription}
-          className="bg-white p-3 rounded-xl mb-1"
+          style={{
+            backgroundColor: "#280000",
+            color: "#ec9b75",
+            padding: 14,
+            borderRadius: 16,
+            borderWidth: 1,
+            borderColor: "#ec9b75",
+            marginBottom: 4,
+            minHeight: 120,
+          }}
           placeholder="Descripción detallada"
+          placeholderTextColor="#b88a6f"
           multiline
         />
         {errors.description && (
-          <Text className="text-red-600 mb-3">{errors.description}</Text>
+          <Text className="text-red-400 mb-3">{errors.description}</Text>
         )}
 
+        {/* BOTÓN */}
         <TouchableOpacity
           onPress={handleCreate}
           disabled={loading}
-          className="bg-green-600 py-3 rounded-xl mt-4"
+          style={{
+            backgroundColor: "#ec9b75",
+            paddingVertical: 12,
+            borderRadius: 16,
+            marginTop: 12,
+          }}
         >
-          <Text className="text-white text-center font-semibold text-lg">
+          <Text className="text-[#280000] text-center font-bold text-lg">
             {loading ? "Creando..." : "Crear Tarea"}
           </Text>
         </TouchableOpacity>
+
+        
       </ScrollView>
+      <AppTabBar />
     </KeyboardAvoidingView>
   );
 }
